@@ -12,9 +12,9 @@ us = 1e-6;
 ns = 1e-9;
 
     % N SWEEP LINEAR : PARAMS
-    N_MIN = 1;
-    N_MAX = 20;
-    STEPS = 1;
+    N_MIN = 0;
+    N_MAX = 200;
+    STEPS = 10;
 
     EXPERIMENT_QUEUE = N_MIN : STEPS : N_MAX;
     
@@ -26,20 +26,20 @@ ns = 1e-9;
     % EXPERIMENT_QUEUE = 10 .^ EXPERIMENT_QUEUE;
 
     % PULSE TRAIN Sweep
-    V_PULSE_MIN = 1.9; % Volts
-    V_PULSE_MAX = 3.0; % Volts
-    V_PULSE_STEP = 0.1; % Volts
+    V_PULSE_MIN  = -3.0; % Volts
+    V_PULSE_MAX  = -2.0; % Volts
+    V_PULSE_STEP = 0.5; % Volts
 
     V_PULSE_QUEUE = V_PULSE_MIN : V_PULSE_STEP : V_PULSE_MAX;
 
-    t_ON_PULSE          = 0.2*us;
-    t_OFF_PULSE         = 0.5*us;
+    t_ON_PULSE          = 1.0*us;
+    t_OFF_PULSE         = 1.0*us;
     t_risefall_PULSE    = 0.01*us;
-    t_delay_PULSE_TRAIN = 1*us;
+    t_delay_PULSE_TRAIN = 100*us;
 
     %% WAVEFORM VOLTAGE AND TIMING PARAMS:
     % ERS PULSE
-    V_ERS          = -4.5; % Volts
+    V_ERS          = 4.5; % Volts
     t_width_ERS    = 10.0*us;
     t_delay_ERS    = 1.0*us;
     t_risefall_ERS = 0.1*us;
@@ -87,9 +87,16 @@ fprintf(fid, 't_READ_VG,%d\n', t_READ_VG);
 fprintf(fid, 't_risefall_VG,%d\n', t_risefall_VG);
 fprintf(fid, 't_delay_READ,%d\n', t_delay_READ);
 % time and date
-fprintf(fid, 'DATE,%s\n', datetime("now", 'Format', 'yyyy-MM-dd HH:mm:ss.SSS'));
+% fprintf(fid, 'DATE,%s\n', datetime("now", 'Format', 'yyyy-MM-dd HH:mm:ss.SSS'));
 fclose(fid);
 
+% Data Containers
+full_data_write = [];
+full_data_read  = [];
+VtD             = [];
+
+data_out_write = [];
+data_out_read = [];
 
 % QUEUE ITERATION :
 color = distinguishable_colors(length(EXPERIMENT_QUEUE));
