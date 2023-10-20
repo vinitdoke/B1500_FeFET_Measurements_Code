@@ -4,7 +4,7 @@
 tic
 
 clear all; close all; clc; % clear all variables, close all figures, clear command window
-% loadlibrary('wgfmu', 'wgfmu.h'); 
+loadlibrary('wgfmu', 'wgfmu.h'); 
 
 % UNITS
 ms = 1e-3;
